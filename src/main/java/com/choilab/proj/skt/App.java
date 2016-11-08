@@ -13,6 +13,7 @@ public class App {
 		DatabaseManager dbManager = MysqlDatabaseManager.getInstance();
 		dbManager.init();
 		
+		System.out.println("AAAA");
 		List<NS3InputData> list = dbManager.fetchData();
 		for(NS3InputData data : list){
 			System.out.println(data.toString());
