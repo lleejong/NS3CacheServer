@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Server Configuration File -->
+<config>
+	<db>
+		<connecton><!-- DB Connection을 위한 Configure -->
+			<ip>127.0.0.1</ip>
+			<port>3306</port>
+			<dbname>simpletest</dbname>
+			<username>root</username>
+			<password></password>
+		</connecton>
+	</db>
+	
+	<cache><!-- Cache 정책 관련 Configure -->
+		<maxObjects></maxObjects>
+	</cache>
+	
+</config>
