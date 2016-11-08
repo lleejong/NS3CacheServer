@@ -10,6 +10,8 @@ public class NS3InputData {
 	private double rxLoss;
 	private double rxDelay;
 	private double rxJitter;
+	
+	private double throughput;
 
 	public NS3InputData(double txLoss, double txDelay, double txJitter, double rxLoss, double rxDelay, double rxJitter) {
 		this.txLoss = txLoss;
@@ -18,6 +20,12 @@ public class NS3InputData {
 		this.rxLoss = rxLoss;
 		this.rxDelay = rxDelay;
 		this.rxJitter = rxJitter;
+		this.throughput = 0.0;
+	}
+	
+	public NS3InputData(double txLoss, double txDelay, double txJitter, double rxLoss, double rxDelay, double rxJitter, double throughput){
+		this(txLoss, txDelay, txJitter, rxLoss, rxDelay, rxJitter);
+		this.throughput = throughput;
 	}
 
 	public double getTxLoss() {
@@ -66,6 +74,26 @@ public class NS3InputData {
 
 	public void setRxJitter(double rxJitter) {
 		this.rxJitter = rxJitter;
+	}
+	
+	public double getThroughput(){
+		return throughput;
+	}
+	
+	public void setThroughput(double throughput){
+		this.throughput = throughput;
+	}
+	
+	public String toString(){
+		StringBuilder result = new StringBuilder();
+		result.append("txLoss : " + txLoss + " , ");
+		result.append("txDelay : " + txDelay + " , ");
+		result.append("txJitter : " + txJitter + " , ");
+		result.append("rxLoss : " + rxLoss + " , ");
+		result.append("rxDelay : " + rxDelay + " , ");
+		result.append("rxJitter : " + rxJitter + " , ");
+		result.append("throughput : " + throughput);
+		return result.toString();
 	}
 
 }
