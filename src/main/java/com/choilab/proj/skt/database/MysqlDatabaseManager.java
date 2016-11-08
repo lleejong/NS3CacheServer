@@ -33,7 +33,8 @@ public class MysqlDatabaseManager implements DatabaseManager {
 		this.password = Config.getPassword();
 		this.dbName = Config.getDbName();
 
-		this.connectionUrl = "jdbc:mysql://" + ip + ":" + port + "/" + dbName;
+		//this.connectionUrl = "jdbc:mysql://" + ip + ":" + port + "/" + dbName;
+		this.connectionUrl = "jdbc:mysql://" + ip + "/" + dbName;
 	}
 
 	public void init() {

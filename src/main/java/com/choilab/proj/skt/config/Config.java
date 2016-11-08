@@ -24,11 +24,11 @@ public class Config {
 	
 	
 	
-	private static String ipaddr = "127.0.0.1";
+	private static String ipaddr = "localhost";
 	private static int port = 3306;
 	private static String dbName = "simpletest";  
 	private static String username = "root";
-	private static String password = ""; 
+	private static String password = "jjong"; 
 	
 	
 
