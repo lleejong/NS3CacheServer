@@ -19,7 +19,7 @@ public class Config {
 	private static Config instance = new Config();
 
 	public static void init() {
-		instance.parseXmlFile();
+		//instance.parseXmlFile();
 	}
 	
 	
