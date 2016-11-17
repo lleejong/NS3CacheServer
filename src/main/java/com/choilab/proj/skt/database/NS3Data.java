@@ -1,6 +1,6 @@
 package com.choilab.proj.skt.database;
 
-public class NS3InputData {
+public class NS3Data {
 	// transmitter
 	private double txLoss;
 	private double txDelay;
@@ -13,7 +13,7 @@ public class NS3InputData {
 	
 	private double throughput;
 
-	public NS3InputData(double txLoss, double txDelay, double txJitter, double rxLoss, double rxDelay, double rxJitter) {
+	public NS3Data(double txLoss, double txDelay, double txJitter, double rxLoss, double rxDelay, double rxJitter) {
 		this.txLoss = txLoss;
 		this.txDelay = txDelay;
 		this.txJitter = txJitter;
@@ -23,7 +23,7 @@ public class NS3InputData {
 		this.throughput = 0.0;
 	}
 	
-	public NS3InputData(double txLoss, double txDelay, double txJitter, double rxLoss, double rxDelay, double rxJitter, double throughput){
+	public NS3Data(double txLoss, double txDelay, double txJitter, double rxLoss, double rxDelay, double rxJitter, double throughput){
 		this(txLoss, txDelay, txJitter, rxLoss, rxDelay, rxJitter);
 		this.throughput = throughput;
 	}
@@ -83,8 +83,20 @@ public class NS3InputData {
 	public void setThroughput(double throughput){
 		this.throughput = throughput;
 	}
-	
+
 	public String toString(){
+		StringBuilder result = new StringBuilder();
+		result.append("txLoss : " + txLoss + " , ");
+		result.append("txDelay : " + txDelay + " , ");
+		result.append("txJitter : " + txJitter + " , ");
+		result.append("rxLoss : " + rxLoss + " , ");
+		result.append("rxDelay : " + rxDelay + " , ");
+		result.append("rxJitter : " + rxJitter + " , ");
+		result.append("throughput : " + throughput);
+		return result.toString();
+	}
+
+	public String toStringWithTagName(){
 		StringBuilder result = new StringBuilder();
 		result.append("txLoss : " + txLoss + " , ");
 		result.append("txDelay : " + txDelay + " , ");

@@ -38,6 +38,7 @@ public class TaskHandler extends Thread{
 			double rxJitter = Double.parseDouble(temp[6]);
 			
 			
+			
 
 			
 			//System.out.println("---Task " + taskID + " : received msg -> " + fromClient);

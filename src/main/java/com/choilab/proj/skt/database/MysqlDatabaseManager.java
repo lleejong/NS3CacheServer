@@ -56,8 +56,8 @@ public class MysqlDatabaseManager implements DatabaseManager {
 		return conn;
 	}
 
-	public List<NS3InputData> fetchData() {
-		List<NS3InputData> dataList = new ArrayList<NS3InputData>();
+	public List<NS3Data> fetchData() {
+		List<NS3Data> dataList = new ArrayList<NS3Data>();
 
 		try {
 			// get connection from the connection pool.
@@ -82,7 +82,7 @@ public class MysqlDatabaseManager implements DatabaseManager {
 				double rxJitter = rs.getDouble("RxJitter");
 				double throughput = rs.getDouble("Throughput"); 
 				
-				dataList.add(new NS3InputData(txLoss,txDelay,txJitter,rxLoss,rxDelay,rxJitter,throughput));
+				dataList.add(new NS3Data(txLoss,txDelay,txJitter,rxLoss,rxDelay,rxJitter,throughput));
 				
 			}
 			
@@ -94,7 +94,7 @@ public class MysqlDatabaseManager implements DatabaseManager {
 		return dataList;
 	}
 
-	public void updateData(NS3InputData dataObj) {
+	public void updateData(NS3Data dataObj) {
 		// insert into ns3data (TxDelay, TxJitter, TxLoss, RxDelay, RxJitter,
 		// RxLoss, Throughput) values
 		try {
