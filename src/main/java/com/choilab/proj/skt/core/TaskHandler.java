@@ -29,9 +29,23 @@ public class TaskHandler extends Thread{
 			writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
 			
 			String fromClient = reader.readLine();
-			System.out.println("---Task " + taskID + " : received msg -> " + fromClient);
-			writer.println("ACK");
-			writer.flush();
+			String[] temp = fromClient.split("//");
+			double txLoss = Double.parseDouble(temp[1]);
+			double txDelay = Double.parseDouble(temp[2]);
+			double txJitter = Double.parseDouble(temp[3]);
+			double rxLoss = Double.parseDouble(temp[4]);
+			double rxDelay = Double.parseDouble(temp[5]);
+			double rxJitter = Double.parseDouble(temp[6]);
+			
+			
+
+			
+			//System.out.println("---Task " + taskID + " : received msg -> " + fromClient);
+			//messenger.sendMsg("[CHECK]/" + txLoss + "/" + txDelay+"/" + txJitter + "/" + rxLoss + "," + rxDelay + "/" + rxJitter);
+			
+			
+			//writer.println("[ACK]");
+			//writer.flush();
 			
 			reader.close();
 			writer.close();
@@ -39,7 +53,6 @@ public class TaskHandler extends Thread{
 			
 			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
