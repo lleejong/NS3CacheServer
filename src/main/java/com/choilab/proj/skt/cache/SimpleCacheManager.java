@@ -32,6 +32,7 @@ public class SimpleCacheManager implements CacheManager{
 		}
 	}
 	public NS3Data isHit(NS3Data obj) {
+		//if(cache.containsKey(obj.toString()))
 		return null;
 	}
 
