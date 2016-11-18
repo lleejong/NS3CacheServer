@@ -32,7 +32,8 @@ public class TaskHandler extends Thread{
 			writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
 			
 			String fromClient = reader.readLine();
-			String[] temp = fromClient.split("//");
+			System.out.println("--Received MSG : " + fromClient);
+			String[] temp = fromClient.split("/");
 			double txLoss = Double.parseDouble(temp[1]);
 			double txDelay = Double.parseDouble(temp[2]);
 			double txJitter = Double.parseDouble(temp[3]);
@@ -46,7 +47,7 @@ public class TaskHandler extends Thread{
 				writer.println("[MISS]");
 				writer.flush();
 				String throughput = reader.readLine();
-				request.setThroughput(Double.parseDouble(throughput.split("//")[1]));
+				request.setThroughput(Double.parseDouble(throughput.split("/")[1]));
 				cacheManager.update(request);
 				//writer.println("[ACK]");
 				//writer.flush();
