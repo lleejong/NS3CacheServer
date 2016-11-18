@@ -71,7 +71,7 @@ public class MysqlDatabaseManager implements DatabaseManager {
 			ResultSet rs = stmt.executeQuery(query);
 			
 			//double txLoss, double txDelay, double txJitter, double rxLoss, double rxDelay, double rxJitter
-			//TxDelay, TxLoss, TxJitter, RxDelay, RxLoss, RxJitter, Thorughput
+			//TxDelay, TxLoss, TxJitter, RxDelay, RxLoss, RxJitter, Throughput
 			while(rs.next()){
 				double txLoss = rs.getDouble("TxLoss");
 				double txDelay = rs.getDouble("TxDelay");
