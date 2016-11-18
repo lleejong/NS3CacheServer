@@ -32,12 +32,12 @@ public class SimpleCacheManager implements CacheManager{
 		}
 	}
 	public NS3Data isHit(NS3Data obj) {
-		//if(cache.containsKey(obj.toString()))
-		return null;
+		return cache.get(obj.toString());
 	}
 
 	public void update(NS3Data obj) {
-		
+		dbManager.updateData(obj);
+		cache.put(obj.toString(), obj);
 	}
 	
 }
