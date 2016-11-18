@@ -47,7 +47,7 @@ public class TaskHandler extends Thread{
 				writer.println("[MISS]");
 				writer.flush();
 				String throughput = reader.readLine();
-				request.setThroughput(Double.parseDouble(throughput.split("/")[1]));
+				request.setThroughput(Double.parseDouble(throughput.split(" ")[1]));
 				cacheManager.update(request);
 				//writer.println("[ACK]");
 				//writer.flush();
