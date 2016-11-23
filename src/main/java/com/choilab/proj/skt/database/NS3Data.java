@@ -86,13 +86,7 @@ public class NS3Data {
 
 	public String toString(){
 		StringBuilder result = new StringBuilder();
-		result.append("txLoss : " + txLoss + " , ");
-		result.append("txDelay : " + txDelay + " , ");
-		result.append("txJitter : " + txJitter + " , ");
-		result.append("rxLoss : " + rxLoss + " , ");
-		result.append("rxDelay : " + rxDelay + " , ");
-		result.append("rxJitter : " + rxJitter + " , ");
-		result.append("throughput : " + throughput);
+		result.append(txLoss + "," + txJitter + "," + txDelay + "," + rxLoss + "," + rxJitter  + "," + rxDelay);  
 		return result.toString();
 	}
 
