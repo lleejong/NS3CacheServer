@@ -6,7 +6,7 @@ import java.net.Socket;
 
 public class TaskScheduler {
 
-	private final int PORT = 8888;
+	private final int PORT = 6789;
 	private ServerSocket serverSocket;
 	private int taskID = 1;
 
