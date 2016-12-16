@@ -72,7 +72,9 @@ public class MysqlDatabaseManager implements DatabaseManager {
 
 			Connection conn = getConnection();
 
+			
 			PreparedStatement pstmt = conn.prepareStatement(query);
+			
 			 pstmt.setDouble(1, (data.getTxDelay() + data.getRxDelay()));
 			 pstmt.setDouble(5, (data.getTxDelay() + data.getRxDelay()));
 			 pstmt.setDouble(2, (data.getTxJitter() + data.getRxJitter()));
@@ -91,7 +93,7 @@ public class MysqlDatabaseManager implements DatabaseManager {
 //			pstmt.setString(4, "'" + data.getRxLoss() + "'");
 //			pstmt.setString(8, "'" + data.getRxLoss() + "'");
 			
-			
+			System.out.println(pstmt.toString());
 			ResultSet rs = pstmt.executeQuery(query);
 			
 			
