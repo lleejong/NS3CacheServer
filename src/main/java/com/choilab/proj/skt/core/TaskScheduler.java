@@ -6,11 +6,12 @@ import java.net.Socket;
 
 public class TaskScheduler {
 
-	private final int PORT = 6789;
+	private final int PORT;
 	private ServerSocket serverSocket;
 	private int taskID = 1;
 
-	public TaskScheduler() {
+	public TaskScheduler(int port) {
+		this.PORT = port;
 		try {
 			serverSocket = new ServerSocket(PORT);
 		} catch (Exception e) {

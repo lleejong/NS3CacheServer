@@ -16,7 +16,7 @@ public class App {
 //		for(NS3Data data : list){
 //			System.out.println(data.toString());
 //		}
-		TaskScheduler taskScheduler = new TaskScheduler();
+		TaskScheduler taskScheduler = new TaskScheduler(Integer.parseInt(args[0]));
 		taskScheduler.run();	
 	}
 }
