@@ -94,7 +94,7 @@ public class MysqlDatabaseManager implements DatabaseManager {
 //			pstmt.setString(8, "'" + data.getRxLoss() + "'");
 			
 			System.out.println(pstmt.toString());
-			ResultSet rs = pstmt.executeQuery(query);
+			ResultSet rs = pstmt.executeQuery();
 			
 			
 			double txLoss = rs.getDouble("TxLoss");
