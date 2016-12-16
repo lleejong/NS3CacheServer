@@ -7,37 +7,38 @@ import com.choilab.proj.skt.database.DatabaseManager;
 import com.choilab.proj.skt.database.MysqlDatabaseManager;
 import com.choilab.proj.skt.database.NS3Data;
 
-public class SimpleCacheManager implements CacheManager{
+public class SimpleCacheManager implements CacheManager {
 
 	private static final SimpleCacheManager instance = new SimpleCacheManager();
-	
-	private HashMap<String,NS3Data> cache = new HashMap<String,NS3Data>();
-	
+
+	private static final double th = 2.0;
+
 	public static SimpleCacheManager getInstance() {
 		return SimpleCacheManager.instance;
 	}
-	
+
 	private DatabaseManager dbManager;
-	
-	private SimpleCacheManager(){
+
+	private SimpleCacheManager() {
 		dbManager = MysqlDatabaseManager.getInstance();
-		init();
 	}
-	
-	private void init(){
-		List<NS3Data> list = dbManager.fetchData();
-		
-		for(NS3Data obj : list){
-			cache.put(obj.toString(), obj);
-		}
-	}
+
 	public NS3Data isHit(NS3Data obj) {
-		return cache.get(obj.toString());
+		NS3Data isHitData = dbManager.cacheQuery(obj);
+
+		double distance = Math.abs((isHitData.getTxDelay() + isHitData.getRxDelay()) - (obj.getTxDelay() + obj.getRxDelay()))
+				+ Math.abs((isHitData.getTxJitter() + isHitData.getRxJitter()) - (obj.getTxJitter() + obj.getRxJitter())) + Math.abs((isHitData.getTxLoss() - obj.getTxLoss()))
+				+ Math.abs((isHitData.getRxLoss() - obj.getRxLoss()));
+		
+		if(distance < th)
+			return isHitData;
+		else
+			return null;
+		// return cache.get(obj.toString());
 	}
 
 	public void update(NS3Data obj) {
 		dbManager.updateData(obj);
-		cache.put(obj.toString(), obj);
 	}
-	
+
 }
