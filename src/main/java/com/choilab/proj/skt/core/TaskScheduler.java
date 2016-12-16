@@ -4,16 +4,18 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import com.choilab.proj.skt.ServerConfigure;
+
 public class TaskScheduler {
 
-	private final int PORT;
+	
 	private ServerSocket serverSocket;
 	private int taskID = 1;
 
-	public TaskScheduler(int port) {
-		this.PORT = port;
+	public TaskScheduler() {
+		
 		try {
-			serverSocket = new ServerSocket(PORT);
+			serverSocket = new ServerSocket(ServerConfigure.port);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -3,6 +3,7 @@ package com.choilab.proj.skt.cache;
 import java.util.HashMap;
 import java.util.List;
 
+import com.choilab.proj.skt.ServerConfigure;
 import com.choilab.proj.skt.database.DatabaseManager;
 import com.choilab.proj.skt.database.MysqlDatabaseManager;
 import com.choilab.proj.skt.database.NS3Data;
@@ -24,6 +25,9 @@ public class SimpleCacheManager implements CacheManager {
 	}
 
 	public NS3Data isHit(NS3Data obj) {
+		if(!ServerConfigure.isCache)
+			return null;
+		
 		NS3Data isHitData = dbManager.cacheQuery(obj);
 
 		if (isHitData != null) {
