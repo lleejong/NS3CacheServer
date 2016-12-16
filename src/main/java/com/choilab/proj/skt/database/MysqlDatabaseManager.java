@@ -66,33 +66,35 @@ public class MysqlDatabaseManager implements DatabaseManager {
 		// B.TotalDelay AND '100' > B.TotalJitter ORDER BY B.EuclideanDistance
 		// LIMIT 1;
 
-		String query = "SELECT B.* FROM (SELECT A.*, ABS(? - A.TotalDelay) + ABS(? - A.TotalJitter) + ABS(? - A.TxLoss) + ABS(? - A.RxLoss) AS EuclideanDistance FROM ns3data A) B WHERE ? > B.TotalDelay AND ? > B.TotalJitter AND ? > B.RxLoss AND ? >B.TxLoss ORDER BY B.EuclideanDistance LIMIT 1";
+		String query = "SELECT B.* FROM (SELECT A.*, ABS(? - A.TotalDelay) + ABS(? - A.TotalJitter) + ABS(? - A.TxLoss) + ABS(? - A.RxLoss) AS EuclideanDistance FROM ns3data A) B WHERE ? > B.TotalDelay AND ? > B.TotalJitter AND ? > B.RxLoss AND ? >B.TxLoss ORDER BY  B.EuclideanDistance LIMIT 1";
 
 		try {
 
 			Connection conn = getConnection();
 
 			PreparedStatement pstmt = conn.prepareStatement(query);
-			// pstmt.setDouble(1, data.getTxDelay() + data.getRxDelay());
-			// pstmt.setDouble(5, data.getTxDelay() + data.getRxDelay());
-			// pstmt.setDouble(2, data.getTxJitter() + data.getRxJitter());
-			// pstmt.setDouble(6, data.getTxJitter() + data.getRxJitter());
-			// pstmt.setDouble(3, data.getTxLoss());
-			// pstmt.setDouble(7, data.getRxLoss());
-			// pstmt.setDouble(4, data.getRxLoss());
-			// pstmt.setDouble(8, data.getTxLoss());
+			 pstmt.setDouble(1, (data.getTxDelay() + data.getRxDelay()));
+			 pstmt.setDouble(5, (data.getTxDelay() + data.getRxDelay()));
+			 pstmt.setDouble(2, (data.getTxJitter() + data.getRxJitter()));
+			 pstmt.setDouble(6, (data.getTxJitter() + data.getRxJitter()));
+			 pstmt.setDouble(3, data.getTxLoss());
+			 pstmt.setDouble(7, data.getRxLoss());
+			 pstmt.setDouble(4, data.getRxLoss());
+			 pstmt.setDouble(8, data.getTxLoss());
 
-			pstmt.setString(1, "'" + (data.getTxDelay() + data.getRxDelay())+ "'");
-			pstmt.setString(5, "'" + (data.getTxDelay() + data.getRxDelay()) + "'");
-			pstmt.setString(2, "'" + (data.getTxJitter() + data.getRxJitter()) + "'");
-			pstmt.setString(6, "'" + (data.getTxJitter() + data.getRxJitter()) + "'");
-			pstmt.setString(3, "'" + data.getTxLoss() + "'");
-			pstmt.setString(7, "'" + data.getTxLoss() + "'");
-			pstmt.setString(4, "'" + data.getRxLoss() + "'");
-			pstmt.setString(8, "'" + data.getRxLoss() + "'");
+//			pstmt.setString(1, "'" + (data.getTxDelay() + data.getRxDelay())+ "'");
+//			pstmt.setString(5, "'" + (data.getTxDelay() + data.getRxDelay()) + "'");
+//			pstmt.setString(2, "'" + (data.getTxJitter() + data.getRxJitter()) + "'");
+//			pstmt.setString(6, "'" + (data.getTxJitter() + data.getRxJitter()) + "'");
+//			pstmt.setString(3, "'" + data.getTxLoss() + "'");
+//			pstmt.setString(7, "'" + data.getTxLoss() + "'");
+//			pstmt.setString(4, "'" + data.getRxLoss() + "'");
+//			pstmt.setString(8, "'" + data.getRxLoss() + "'");
 			
 			
 			ResultSet rs = pstmt.executeQuery(query);
+			
+			
 			double txLoss = rs.getDouble("TxLoss");
 			double txDelay = rs.getDouble("TxDelay");
 			double txJitter = rs.getDouble("TxJitter");
