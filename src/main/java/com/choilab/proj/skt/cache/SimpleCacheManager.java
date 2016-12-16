@@ -26,13 +26,16 @@ public class SimpleCacheManager implements CacheManager {
 	public NS3Data isHit(NS3Data obj) {
 		NS3Data isHitData = dbManager.cacheQuery(obj);
 
-		double distance = Math.abs((isHitData.getTxDelay() + isHitData.getRxDelay()) - (obj.getTxDelay() + obj.getRxDelay()))
-				+ Math.abs((isHitData.getTxJitter() + isHitData.getRxJitter()) - (obj.getTxJitter() + obj.getRxJitter())) + Math.abs((isHitData.getTxLoss() - obj.getTxLoss()))
-				+ Math.abs((isHitData.getRxLoss() - obj.getRxLoss()));
-		
-		if(distance < th)
-			return isHitData;
-		else
+		if (isHitData != null) {
+			double distance = Math.abs((isHitData.getTxDelay() + isHitData.getRxDelay()) - (obj.getTxDelay() + obj.getRxDelay()))
+					+ Math.abs((isHitData.getTxJitter() + isHitData.getRxJitter()) - (obj.getTxJitter() + obj.getRxJitter())) + Math.abs((isHitData.getTxLoss() - obj.getTxLoss()))
+					+ Math.abs((isHitData.getRxLoss() - obj.getRxLoss()));
+
+			if (distance < th)
+				return isHitData;
+			else
+				return null;
+		} else
 			return null;
 		// return cache.get(obj.toString());
 	}
