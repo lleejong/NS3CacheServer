@@ -93,9 +93,11 @@ public class MysqlDatabaseManager implements DatabaseManager {
 //			pstmt.setString(4, "'" + data.getRxLoss() + "'");
 //			pstmt.setString(8, "'" + data.getRxLoss() + "'");
 			
-			System.out.println(pstmt.toString());
+			//System.out.println(pstmt.toString());
 			ResultSet rs = pstmt.executeQuery();
 			
+			if(!rs.next())
+				return null;
 			
 			double txLoss = rs.getDouble("TxLoss");
 			double txDelay = rs.getDouble("TxDelay");
