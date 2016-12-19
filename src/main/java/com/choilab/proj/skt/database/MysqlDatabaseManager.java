@@ -66,7 +66,10 @@ public class MysqlDatabaseManager implements DatabaseManager {
 		// B.TotalDelay AND '100' > B.TotalJitter ORDER BY B.EuclideanDistance
 		// LIMIT 1;
 
-		String query = "SELECT B.* FROM (SELECT A.*, ABS(? - A.TotalDelay) + ABS(? - A.TotalJitter) + ABS(? - A.TxLoss) + ABS(? - A.RxLoss) AS EuclideanDistance FROM ns3data A) B WHERE ? > B.TotalDelay AND ? > B.TotalJitter AND ? > B.RxLoss AND ? > B.TxLoss ORDER BY  B.EuclideanDistance LIMIT 1";
+		String query = "SELECT B.* FROM (SELECT A.*, ABS(? - A.TxDelay) + ABS(? - A.RxDelay) + "
+				+ "ABS(? - A.TxJitter) + ABS(? - A.RxDelay) AS EuclideanDistance FROM ns3data A) B "
+				+ "WHERE ? > B.TxDelay AND ? > B.RxDelay AND ? > B.TxJitter AND ? > B.RxJitter ORDER BY  B.EuclideanDistance LIMIT 1";
+		
 
 		try {
 

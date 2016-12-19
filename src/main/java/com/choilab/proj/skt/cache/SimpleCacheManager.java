@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.choilab.proj.skt.ServerConfigure;
+import com.choilab.proj.skt.core.FileLogger;
 import com.choilab.proj.skt.database.DatabaseManager;
 import com.choilab.proj.skt.database.MysqlDatabaseManager;
 import com.choilab.proj.skt.database.NS3Data;
@@ -25,17 +26,19 @@ public class SimpleCacheManager implements CacheManager {
 	}
 
 	public NS3Data isHit(NS3Data obj) {
-		if(!ServerConfigure.isCache)
+		if (!ServerConfigure.isCache)
 			return null;
-		
+
 		NS3Data isHitData = dbManager.cacheQuery(obj);
 
+		FileLogger.newLine("isHitData != NULL : " + (isHitData != null));
+		
 		if (isHitData != null) {
 			double distance = Math.abs((isHitData.getTxDelay() + isHitData.getRxDelay()) - (obj.getTxDelay() + obj.getRxDelay()))
 					+ Math.abs((isHitData.getTxJitter() + isHitData.getRxJitter()) - (obj.getTxJitter() + obj.getRxJitter())) + Math.abs((isHitData.getTxLoss() - obj.getTxLoss()))
 					+ Math.abs((isHitData.getRxLoss() - obj.getRxLoss()));
 
-			System.out.println("----" + distance);
+			FileLogger.newLine("isHitData :" + isHitData.toStringWithTagName() +"\n" + "input :" + obj.toStringWithTagName() + "\n" + "distance : " + distance + "\n");
 			if (distance < th)
 				return isHitData;
 			else

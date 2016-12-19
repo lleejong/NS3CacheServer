@@ -1,6 +1,8 @@
 package com.choilab.proj.skt.core;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
@@ -9,8 +11,6 @@ import java.net.Socket;
 
 import com.choilab.proj.skt.cache.CacheManager;
 import com.choilab.proj.skt.cache.SimpleCacheManager;
-import com.choilab.proj.skt.database.DatabaseManager;
-import com.choilab.proj.skt.database.MysqlDatabaseManager;
 import com.choilab.proj.skt.database.NS3Data;
 
 public class TaskHandler extends Thread{
@@ -26,7 +26,7 @@ public class TaskHandler extends Thread{
 		this.cacheManager = SimpleCacheManager.getInstance();
 	}
 	
-	public void run(){
+	public synchronized void run(){
 		try {
 			reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
@@ -60,7 +60,6 @@ public class TaskHandler extends Thread{
 			reader.close();
 			writer.close();
 			socket.close();
-			
 			
 		} catch (IOException e) {
 			e.printStackTrace();
