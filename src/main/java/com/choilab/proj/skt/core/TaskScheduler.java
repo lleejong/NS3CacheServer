@@ -26,7 +26,7 @@ public class TaskScheduler {
 			try {
 				Socket socket = serverSocket.accept();
 				//System.out.println("---New Request accepted");
-				new TaskHandler(taskID++, socket).run();
+				new TaskHandler(taskID++, socket).start();
 			} catch (IOException e) {
 				e.printStackTrace();
 				FileLogger.newLine(e.getMessage());
