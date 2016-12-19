@@ -20,8 +20,6 @@ public class MysqlDatabaseManager implements DatabaseManager {
 	private final String password;
 	private final String connectionUrl;
 
-
-
 	public MysqlDatabaseManager() {
 		this.ip = Config.getIpaddr();
 		this.port = Config.getPort();
@@ -54,17 +52,9 @@ public class MysqlDatabaseManager implements DatabaseManager {
 		return conn;
 	}
 
-	public NS3Data cacheQuery(NS3Data data) throws SQLException {
-
-		// SELECT B.* FROM (SELECT A.*, SQRT(POW('1500' - A.TotalDelay, 2) +
-		// POW('100' - A.TotalJitter, 2) + POW('0' - A.TxLoss, 2) + POW('0' -
-		// A.RxLoss, 2)) AS EuclideanDistance FROM ns3data A) B WHERE '1500' >
-		// B.TotalDelay AND '100' > B.TotalJitter ORDER BY B.EuclideanDistance
-		// LIMIT 1;
-
+	public NS3Data cacheStep1(NS3Data data) throws SQLException {
 		String query = "SELECT B.* FROM (SELECT A.*, ABS(? - A.TxDelay) + ABS(? - A.RxDelay) + " + "ABS(? - A.TxJitter) + ABS(? - A.RxJitter) AS EuclideanDistance FROM ns3data A) B "
-				+ "WHERE ? > B.TxDelay AND ? > B.RxDelay AND ? > B.TxJitter AND ? > B.RxJitter ORDER BY  B.EuclideanDistance LIMIT 1";
-
+				+ "ORDER BY B.EuclideanDistance LIMIT 1";
 		Connection conn = getConnection();
 
 		PreparedStatement pstmt = conn.prepareStatement(query);
@@ -73,25 +63,8 @@ public class MysqlDatabaseManager implements DatabaseManager {
 		pstmt.setDouble(2, data.getRxDelay());
 		pstmt.setDouble(3, data.getTxJitter());
 		pstmt.setDouble(4, data.getRxJitter());
-		pstmt.setDouble(5, data.getTxDelay());
-		pstmt.setDouble(6, data.getRxDelay());
-		pstmt.setDouble(7, data.getTxJitter());
-		pstmt.setDouble(8, data.getRxJitter());
+		
 
-		// pstmt.setString(1, "'" + (data.getTxDelay() + data.getRxDelay())+
-		// "'");
-		// pstmt.setString(5, "'" + (data.getTxDelay() + data.getRxDelay()) +
-		// "'");
-		// pstmt.setString(2, "'" + (data.getTxJitter() + data.getRxJitter()) +
-		// "'");
-		// pstmt.setString(6, "'" + (data.getTxJitter() + data.getRxJitter()) +
-		// "'");
-		// pstmt.setString(3, "'" + data.getTxLoss() + "'");
-		// pstmt.setString(7, "'" + data.getTxLoss() + "'");
-		// pstmt.setString(4, "'" + data.getRxLoss() + "'");
-		// pstmt.setString(8, "'" + data.getRxLoss() + "'");
-
-		// System.out.println(pstmt.toString());
 		ResultSet rs = pstmt.executeQuery();
 
 		if (!rs.next())
@@ -108,6 +81,63 @@ public class MysqlDatabaseManager implements DatabaseManager {
 
 		return new NS3Data(txLoss, txDelay, txJitter, rxLoss, rxDelay, rxJitter, throughput);
 
+	}
+
+	public NS3Data cacheStep2(NS3Data data) throws SQLException {
+		String query = "SELECT B.* FROM (SELECT A.*, ABS(? - A.TxDelay) + ABS(? - A.RxDelay) + " + "ABS(? - A.TxJitter) + ABS(? - A.RxJitter) AS EuclideanDistance FROM ns3data A) B "
+				+ "WHERE ? > B.TxDelay AND ? > B.RxDelay AND ? > B.TxJitter AND ? > B.RxJitter ORDER BY  B.EuclideanDistance LIMIT 1";
+		Connection conn = getConnection();
+
+		PreparedStatement pstmt = conn.prepareStatement(query);
+
+		pstmt.setDouble(1, data.getTxDelay());
+		pstmt.setDouble(2, data.getRxDelay());
+		pstmt.setDouble(3, data.getTxJitter());
+		pstmt.setDouble(4, data.getRxJitter());
+		pstmt.setDouble(5, data.getTxDelay());
+		pstmt.setDouble(6, data.getRxDelay());
+		pstmt.setDouble(7, data.getTxJitter());
+		pstmt.setDouble(8, data.getRxJitter());
+
+		ResultSet rs = pstmt.executeQuery();
+
+		if (!rs.next())
+			return null;
+
+		double txLoss = rs.getDouble("TxLoss");
+		double txDelay = rs.getDouble("TxDelay");
+		double txJitter = rs.getDouble("TxJitter");
+
+		double rxLoss = rs.getDouble("RxLoss");
+		double rxDelay = rs.getDouble("RxDelay");
+		double rxJitter = rs.getDouble("RxJitter");
+		double throughput = rs.getDouble("Throughput");
+
+		return new NS3Data(txLoss, txDelay, txJitter, rxLoss, rxDelay, rxJitter, throughput);
+	}
+
+	public NS3Data cacheStep3(NS3Data data) {
+		return null;
+	}
+
+	public NS3Data cacheQuery(int step, NS3Data data) throws SQLException {
+
+		// SELECT B.* FROM (SELECT A.*, SQRT(POW('1500' - A.TotalDelay, 2) +
+		// POW('100' - A.TotalJitter, 2) + POW('0' - A.TxLoss, 2) + POW('0' -
+		// A.RxLoss, 2)) AS EuclideanDistance FROM ns3data A) B WHERE '1500' >
+		// B.TotalDelay AND '100' > B.TotalJitter ORDER BY B.EuclideanDistance
+		// LIMIT 1;
+		
+		switch (step) {
+		case 1:
+			return cacheStep1(data);
+		case 2:
+			return cacheStep2(data);
+		case 3:
+			return cacheStep3(data);
+		default:
+			return null;
+		}
 
 	}
 

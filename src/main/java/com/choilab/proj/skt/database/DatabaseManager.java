@@ -9,6 +9,6 @@ public interface DatabaseManager {
 	public void init();
 	public List<NS3Data> fetchData();
 	public void updateData(NS3Data dataObj);
-	public NS3Data cacheQuery(NS3Data dataObj) throws SQLException;
+	public NS3Data cacheQuery(int step, NS3Data dataObj) throws SQLException;
 }
 
