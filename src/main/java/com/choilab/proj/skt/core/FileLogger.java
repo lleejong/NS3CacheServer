@@ -5,7 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class FileLogger {
-	public synchronized static void newLine(String line){
+	public static void newLine(String line){
 		try {
 			FileWriter fw = new FileWriter(new File("/log.txt"), true);
 			fw.write(line);
