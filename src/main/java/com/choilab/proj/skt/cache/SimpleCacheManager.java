@@ -10,18 +10,11 @@ import com.choilab.proj.skt.database.NS3Data;
 
 public class SimpleCacheManager implements CacheManager {
 
-	private static final SimpleCacheManager instance = new SimpleCacheManager();
-
 	private static final double th = 100.0;
-
-	public static SimpleCacheManager getInstance() {
-		return SimpleCacheManager.instance;
-	}
-
 	private DatabaseManager dbManager;
 
-	private SimpleCacheManager() {
-		dbManager = MysqlDatabaseManager.getInstance();
+	public SimpleCacheManager() {
+		dbManager = new MysqlDatabaseManager();
 	}
 
 	public NS3Data isHit(NS3Data obj) throws SQLException {

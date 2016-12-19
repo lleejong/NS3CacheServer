@@ -8,7 +8,7 @@ import com.choilab.proj.skt.database.MysqlDatabaseManager;
 public class App {
 	public static void main(String[] args) {
 		Config.init();
-		DatabaseManager dbManager = MysqlDatabaseManager.getInstance();
+		DatabaseManager dbManager = new MysqlDatabaseManager();
 		dbManager.init();
 		
 		System.out.println("Server Running...");

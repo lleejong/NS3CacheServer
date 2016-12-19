@@ -20,13 +20,9 @@ public class MysqlDatabaseManager implements DatabaseManager {
 	private final String password;
 	private final String connectionUrl;
 
-	private final static MysqlDatabaseManager instance = new MysqlDatabaseManager();
 
-	public static MysqlDatabaseManager getInstance() {
-		return MysqlDatabaseManager.instance;
-	}
 
-	private MysqlDatabaseManager() {
+	public MysqlDatabaseManager() {
 		this.ip = Config.getIpaddr();
 		this.port = Config.getPort();
 		this.username = Config.getUsername();

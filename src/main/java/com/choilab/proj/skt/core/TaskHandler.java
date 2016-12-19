@@ -24,7 +24,7 @@ public class TaskHandler extends Thread{
 	public TaskHandler(int taskID, Socket socket){
 		this.taskID = taskID;
 		this.socket = socket;
-		this.cacheManager = SimpleCacheManager.getInstance();
+		this.cacheManager = new SimpleCacheManager();
 	}
 	
 	public void run(){
