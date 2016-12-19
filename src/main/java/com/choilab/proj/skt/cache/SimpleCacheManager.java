@@ -30,7 +30,7 @@ public class SimpleCacheManager implements CacheManager {
 
 		NS3Data isHitData = dbManager.cacheQuery(obj);
 
-		FileLogger.newLine("isHitData != NULL : " + (isHitData != null));
+		FileLogger.newLine("isHitData != NULL : " + (isHitData != null)+ "\n");
 		
 		if (isHitData != null) {
 			double distance = Math.abs((isHitData.getTxDelay() + isHitData.getRxDelay()) - (obj.getTxDelay() + obj.getRxDelay()))

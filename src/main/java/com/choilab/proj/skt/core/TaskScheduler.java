@@ -29,6 +29,7 @@ public class TaskScheduler {
 				new TaskHandler(taskID++, socket).run();
 			} catch (IOException e) {
 				e.printStackTrace();
+				FileLogger.newLine(e.getMessage());
 			}
 
 		}
