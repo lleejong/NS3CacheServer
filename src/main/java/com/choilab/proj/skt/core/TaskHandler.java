@@ -44,9 +44,9 @@ public class TaskHandler extends Thread{
 			double rxJitter = Double.parseDouble(temp[6]);
 			
 			NS3Data request = new NS3Data(txLoss,txDelay,txJitter,rxLoss,rxDelay,rxJitter);
-			FileLogger.newLine(taskID+" : " + "AAA");
+			FileLogger.newLine("#"+taskID+" : " + "AAA\n");
 			NS3Data result = cacheManager.isHit(request);
-			FileLogger.newLine(taskID+" : " + "BBB");
+			FileLogger.newLine("#"+taskID+" : " + "BBB\n");
 			if(result == null){
 				writer.println("[MISS]");
 				writer.flush();
