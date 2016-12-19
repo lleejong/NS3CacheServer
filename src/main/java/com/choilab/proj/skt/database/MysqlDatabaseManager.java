@@ -58,7 +58,7 @@ public class MysqlDatabaseManager implements DatabaseManager {
 		return conn;
 	}
 
-	public NS3Data cacheQuery(NS3Data data) {
+	public NS3Data cacheQuery(NS3Data data) throws SQLException {
 
 		// SELECT B.* FROM (SELECT A.*, SQRT(POW('1500' - A.TotalDelay, 2) +
 		// POW('100' - A.TotalJitter, 2) + POW('0' - A.TxLoss, 2) + POW('0' -
@@ -66,58 +66,52 @@ public class MysqlDatabaseManager implements DatabaseManager {
 		// B.TotalDelay AND '100' > B.TotalJitter ORDER BY B.EuclideanDistance
 		// LIMIT 1;
 
-		String query = "SELECT B.* FROM (SELECT A.*, ABS(? - A.TxDelay) + ABS(? - A.RxDelay) + "
-				+ "ABS(? - A.TxJitter) + ABS(? - A.RxDelay) AS EuclideanDistance FROM ns3data A) B "
+		String query = "SELECT B.* FROM (SELECT A.*, ABS(? - A.TxDelay) + ABS(? - A.RxDelay) + " + "ABS(? - A.TxJitter) + ABS(? - A.RxJitter) AS EuclideanDistance FROM ns3data A) B "
 				+ "WHERE ? > B.TxDelay AND ? > B.RxDelay AND ? > B.TxJitter AND ? > B.RxJitter ORDER BY  B.EuclideanDistance LIMIT 1";
-		
 
-		try {
+		Connection conn = getConnection();
 
-			Connection conn = getConnection();
+		PreparedStatement pstmt = conn.prepareStatement(query);
 
-			
-			PreparedStatement pstmt = conn.prepareStatement(query);
-			
-			 pstmt.setDouble(1, (data.getTxDelay() + data.getRxDelay()));
-			 pstmt.setDouble(5, (data.getTxDelay() + data.getRxDelay()));
-			 pstmt.setDouble(2, (data.getTxJitter() + data.getRxJitter()));
-			 pstmt.setDouble(6, (data.getTxJitter() + data.getRxJitter()));
-			 pstmt.setDouble(3, data.getTxLoss());
-			 pstmt.setDouble(7, data.getRxLoss());
-			 pstmt.setDouble(4, data.getRxLoss());
-			 pstmt.setDouble(8, data.getTxLoss());
+		pstmt.setDouble(1, data.getTxDelay());
+		pstmt.setDouble(2, data.getRxDelay());
+		pstmt.setDouble(3, data.getTxJitter());
+		pstmt.setDouble(4, data.getRxJitter());
+		pstmt.setDouble(5, data.getTxDelay());
+		pstmt.setDouble(6, data.getRxDelay());
+		pstmt.setDouble(7, data.getTxJitter());
+		pstmt.setDouble(8, data.getRxJitter());
 
-//			pstmt.setString(1, "'" + (data.getTxDelay() + data.getRxDelay())+ "'");
-//			pstmt.setString(5, "'" + (data.getTxDelay() + data.getRxDelay()) + "'");
-//			pstmt.setString(2, "'" + (data.getTxJitter() + data.getRxJitter()) + "'");
-//			pstmt.setString(6, "'" + (data.getTxJitter() + data.getRxJitter()) + "'");
-//			pstmt.setString(3, "'" + data.getTxLoss() + "'");
-//			pstmt.setString(7, "'" + data.getTxLoss() + "'");
-//			pstmt.setString(4, "'" + data.getRxLoss() + "'");
-//			pstmt.setString(8, "'" + data.getRxLoss() + "'");
-			
-			//System.out.println(pstmt.toString());
-			ResultSet rs = pstmt.executeQuery();
-			
-			if(!rs.next())
-				return null;
-			
-			double txLoss = rs.getDouble("TxLoss");
-			double txDelay = rs.getDouble("TxDelay");
-			double txJitter = rs.getDouble("TxJitter");
+		// pstmt.setString(1, "'" + (data.getTxDelay() + data.getRxDelay())+
+		// "'");
+		// pstmt.setString(5, "'" + (data.getTxDelay() + data.getRxDelay()) +
+		// "'");
+		// pstmt.setString(2, "'" + (data.getTxJitter() + data.getRxJitter()) +
+		// "'");
+		// pstmt.setString(6, "'" + (data.getTxJitter() + data.getRxJitter()) +
+		// "'");
+		// pstmt.setString(3, "'" + data.getTxLoss() + "'");
+		// pstmt.setString(7, "'" + data.getTxLoss() + "'");
+		// pstmt.setString(4, "'" + data.getRxLoss() + "'");
+		// pstmt.setString(8, "'" + data.getRxLoss() + "'");
 
-			double rxLoss = rs.getDouble("RxLoss");
-			double rxDelay = rs.getDouble("RxDelay");
-			double rxJitter = rs.getDouble("RxJitter");
-			double throughput = rs.getDouble("Throughput");
+		// System.out.println(pstmt.toString());
+		ResultSet rs = pstmt.executeQuery();
 
-			return new NS3Data(txLoss, txDelay, txJitter, rxLoss, rxDelay, rxJitter, throughput);
+		if (!rs.next())
+			return null;
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		double txLoss = rs.getDouble("TxLoss");
+		double txDelay = rs.getDouble("TxDelay");
+		double txJitter = rs.getDouble("TxJitter");
 
-		return null;
+		double rxLoss = rs.getDouble("RxLoss");
+		double rxDelay = rs.getDouble("RxDelay");
+		double rxJitter = rs.getDouble("RxJitter");
+		double throughput = rs.getDouble("Throughput");
+
+		return new NS3Data(txLoss, txDelay, txJitter, rxLoss, rxDelay, rxJitter, throughput);
+
 
 	}
 

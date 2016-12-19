@@ -8,6 +8,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.sql.SQLException;
 
 import com.choilab.proj.skt.cache.CacheManager;
 import com.choilab.proj.skt.cache.SimpleCacheManager;
@@ -63,6 +64,10 @@ public class TaskHandler extends Thread{
 			
 		} catch (IOException e) {
 			e.printStackTrace();
+			FileLogger.newLine(e.getMessage());
+		} catch (SQLException e) {
+			e.printStackTrace();
+			FileLogger.newLine(e.getMessage());
 		}
 	}
 }

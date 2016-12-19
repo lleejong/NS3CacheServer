@@ -1,5 +1,7 @@
 package com.choilab.proj.skt.cache;
 
+import java.sql.SQLException;
+
 import com.choilab.proj.skt.ServerConfigure;
 import com.choilab.proj.skt.core.FileLogger;
 import com.choilab.proj.skt.database.DatabaseManager;
@@ -22,7 +24,7 @@ public class SimpleCacheManager implements CacheManager {
 		dbManager = MysqlDatabaseManager.getInstance();
 	}
 
-	public NS3Data isHit(NS3Data obj) {
+	public NS3Data isHit(NS3Data obj) throws SQLException {
 		if (!ServerConfigure.isCache)
 			return null;
 
