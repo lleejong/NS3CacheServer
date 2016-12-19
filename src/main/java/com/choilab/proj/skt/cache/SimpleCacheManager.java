@@ -12,7 +12,7 @@ public class SimpleCacheManager implements CacheManager {
 
 	private static final SimpleCacheManager instance = new SimpleCacheManager();
 
-	private static final double th = 2.0;
+	private static final double th = 100.0;
 
 	public static SimpleCacheManager getInstance() {
 		return SimpleCacheManager.instance;
@@ -35,6 +35,7 @@ public class SimpleCacheManager implements CacheManager {
 					+ Math.abs((isHitData.getTxJitter() + isHitData.getRxJitter()) - (obj.getTxJitter() + obj.getRxJitter())) + Math.abs((isHitData.getTxLoss() - obj.getTxLoss()))
 					+ Math.abs((isHitData.getRxLoss() - obj.getRxLoss()));
 
+			System.out.println("----" + distance);
 			if (distance < th)
 				return isHitData;
 			else
