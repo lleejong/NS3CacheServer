@@ -1,8 +1,5 @@
 package com.choilab.proj.skt.cache;
 
-import java.util.HashMap;
-import java.util.List;
-
 import com.choilab.proj.skt.ServerConfigure;
 import com.choilab.proj.skt.core.FileLogger;
 import com.choilab.proj.skt.database.DatabaseManager;
