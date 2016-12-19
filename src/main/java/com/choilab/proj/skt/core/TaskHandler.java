@@ -27,7 +27,7 @@ public class TaskHandler extends Thread{
 		this.cacheManager = SimpleCacheManager.getInstance();
 	}
 	
-	public synchronized void run(){
+	public void run(){
 		try {
 			reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
