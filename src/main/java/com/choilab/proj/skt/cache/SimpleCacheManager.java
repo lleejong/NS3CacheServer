@@ -30,14 +30,14 @@ public class SimpleCacheManager implements CacheManager {
 
 		NS3Data isHitData = dbManager.cacheQuery(obj);
 
-		FileLogger.newLine("isHitData != NULL : " + (isHitData != null)+ "\n");
+		FileLogger.newLine("1. isHitData != NULL : " + (isHitData != null)+ "\n" + "input :" + obj.toStringWithTagName() + "\n");
 		
 		if (isHitData != null) {
 			double distance = Math.abs((isHitData.getTxDelay() + isHitData.getRxDelay()) - (obj.getTxDelay() + obj.getRxDelay()))
 					+ Math.abs((isHitData.getTxJitter() + isHitData.getRxJitter()) - (obj.getTxJitter() + obj.getRxJitter())) + Math.abs((isHitData.getTxLoss() - obj.getTxLoss()))
 					+ Math.abs((isHitData.getRxLoss() - obj.getRxLoss()));
 
-			FileLogger.newLine("isHitData :" + isHitData.toStringWithTagName() +"\n" + "input :" + obj.toStringWithTagName() + "\n" + "distance : " + distance + "\n");
+			FileLogger.newLine("isHitData :" + isHitData.toStringWithTagName() +"\n" + "distance : " + distance + "\n");
 			if (distance < th)
 				return isHitData;
 			else

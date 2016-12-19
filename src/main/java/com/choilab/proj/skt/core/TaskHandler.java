@@ -34,6 +34,7 @@ public class TaskHandler extends Thread{
 			
 			String fromClient = reader.readLine();
 			System.out.println("--Received MSG : " + fromClient);
+			FileLogger.newLine(taskID+" : " + fromClient);
 			String[] temp = fromClient.split("/");
 			double txLoss = Double.parseDouble(temp[1]);
 			double txDelay = Double.parseDouble(temp[2]);
@@ -43,7 +44,9 @@ public class TaskHandler extends Thread{
 			double rxJitter = Double.parseDouble(temp[6]);
 			
 			NS3Data request = new NS3Data(txLoss,txDelay,txJitter,rxLoss,rxDelay,rxJitter);
+			FileLogger.newLine(taskID+" : " + "AAA");
 			NS3Data result = cacheManager.isHit(request);
+			FileLogger.newLine(taskID+" : " + "BBB");
 			if(result == null){
 				writer.println("[MISS]");
 				writer.flush();
