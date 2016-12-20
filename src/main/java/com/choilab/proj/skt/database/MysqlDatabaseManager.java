@@ -79,6 +79,8 @@ public class MysqlDatabaseManager implements DatabaseManager {
 		double rxJitter = rs.getDouble("RxJitter");
 		double throughput = rs.getDouble("Throughput");
 
+		conn.close();
+		
 		return new NS3Data(txLoss, txDelay, txJitter, rxLoss, rxDelay, rxJitter, throughput);
 
 	}
@@ -113,6 +115,7 @@ public class MysqlDatabaseManager implements DatabaseManager {
 		double rxJitter = rs.getDouble("RxJitter");
 		double throughput = rs.getDouble("Throughput");
 
+		conn.close();
 		return new NS3Data(txLoss, txDelay, txJitter, rxLoss, rxDelay, rxJitter, throughput);
 	}
 
