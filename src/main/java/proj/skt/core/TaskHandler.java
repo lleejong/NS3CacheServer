@@ -1,4 +1,4 @@
-package com.choilab.proj.skt.core;
+package proj.skt.core;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -10,9 +10,9 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.sql.SQLException;
 
-import com.choilab.proj.skt.cache.CacheManager;
-import com.choilab.proj.skt.cache.SimpleCacheManager;
-import com.choilab.proj.skt.database.NS3Data;
+import proj.skt.cache.CacheManager;
+import proj.skt.cache.SimpleCacheManager;
+import proj.skt.database.NS3Data;
 
 public class TaskHandler extends Thread{
 	private int taskID;

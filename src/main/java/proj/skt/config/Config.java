@@ -1,4 +1,4 @@
-package com.choilab.proj.skt.config;
+package proj.skt.config;
 
 import java.io.File;
 import java.io.IOException;

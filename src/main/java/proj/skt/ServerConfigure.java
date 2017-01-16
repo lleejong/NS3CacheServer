@@ -1,4 +1,4 @@
-package com.choilab.proj.skt;
+package proj.skt;
 
 public class ServerConfigure {
 

@@ -1,4 +1,4 @@
-package com.choilab.proj.skt.core;
+package proj.skt.core;
 
 public interface Task {
 	public static final int REQUEST_UPDATE = 1;

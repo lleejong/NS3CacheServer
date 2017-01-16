@@ -1,4 +1,4 @@
-package com.choilab.proj.skt.database;
+package proj.skt.database;
 
 import java.sql.SQLException;
 import java.util.List;

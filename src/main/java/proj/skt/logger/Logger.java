@@ -1,4 +1,4 @@
-package com.choilab.proj.skt.logger;
+package proj.skt.logger;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

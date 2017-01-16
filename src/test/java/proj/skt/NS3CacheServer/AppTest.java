@@ -1,4 +1,4 @@
-package com.choilab.proj.skt.NS3CacheServer;
+package proj.skt.NS3CacheServer;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

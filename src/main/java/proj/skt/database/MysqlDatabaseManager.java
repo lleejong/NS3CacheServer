@@ -1,4 +1,4 @@
-package com.choilab.proj.skt.database;
+package proj.skt.database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,7 +9,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.choilab.proj.skt.config.Config;
+import proj.skt.config.Config;
 
 public class MysqlDatabaseManager implements DatabaseManager {
 

@@ -1,4 +1,4 @@
-package com.choilab.proj.skt.database;
+package proj.skt.database;
 
 public class NS3Data {
 	// transmitter

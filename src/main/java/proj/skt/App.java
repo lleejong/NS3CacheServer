@@ -1,9 +1,9 @@
-package com.choilab.proj.skt;
+package proj.skt;
 
-import com.choilab.proj.skt.config.Config;
-import com.choilab.proj.skt.core.TaskScheduler;
-import com.choilab.proj.skt.database.DatabaseManager;
-import com.choilab.proj.skt.database.MysqlDatabaseManager;
+import proj.skt.config.Config;
+import proj.skt.core.TaskScheduler;
+import proj.skt.database.DatabaseManager;
+import proj.skt.database.MysqlDatabaseManager;
 
 public class App {
 	public static void main(String[] args) {

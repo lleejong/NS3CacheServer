@@ -1,4 +1,4 @@
-package com.choilab.proj.skt.core;
+package proj.skt.core;
 
 public class SimpleTask implements Task{
 	

@@ -1,12 +1,12 @@
-package com.choilab.proj.skt.cache;
+package proj.skt.cache;
 
 import java.sql.SQLException;
 
-import com.choilab.proj.skt.ServerConfigure;
-import com.choilab.proj.skt.core.FileLogger;
-import com.choilab.proj.skt.database.DatabaseManager;
-import com.choilab.proj.skt.database.MysqlDatabaseManager;
-import com.choilab.proj.skt.database.NS3Data;
+import proj.skt.ServerConfigure;
+import proj.skt.core.FileLogger;
+import proj.skt.database.DatabaseManager;
+import proj.skt.database.MysqlDatabaseManager;
+import proj.skt.database.NS3Data;
 
 public class SimpleCacheManager implements CacheManager {
 	public static int totalCnt = 0;
@@ -31,14 +31,11 @@ public class SimpleCacheManager implements CacheManager {
 		//step1;
 		NS3Data isHitData = dbManager.cacheQuery(step++, obj);
 		if (isHitData != null) {
-			// FileLogger.newLine("1. isHitData != NULL : " + (isHitData !=
-			// null)+ "\n" + "input :" + obj.toStringWithTagName() + "\n");
 
 			double distance = Math.abs((isHitData.getTxDelay() + isHitData.getRxDelay()) - (obj.getTxDelay() + obj.getRxDelay()))
 					+ Math.abs((isHitData.getTxJitter() + isHitData.getRxJitter()) - (obj.getTxJitter() + obj.getRxJitter())) + Math.abs((isHitData.getTxLoss() - obj.getTxLoss()))
 					+ Math.abs((isHitData.getRxLoss() - obj.getRxLoss()));
 
-			//FileLogger.newLine("isHitData :" + isHitData.toStringWithTagName() + "\n" + "distance : " + distance + "\n");
 			if (distance < th){
 				hitCnt1++;
 				FileLogger.newLine(obj.toStringWithTagName() + "/HIT1/"+distance);

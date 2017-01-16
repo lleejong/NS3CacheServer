@@ -1,8 +1,8 @@
-package com.choilab.proj.skt.cache;
+package proj.skt.cache;
 
 import java.sql.SQLException;
 
-import com.choilab.proj.skt.database.NS3Data;
+import proj.skt.database.NS3Data;
 
 public interface CacheManager {
 	

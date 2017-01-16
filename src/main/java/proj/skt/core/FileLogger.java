@@ -1,4 +1,4 @@
-package com.choilab.proj.skt.core;
+package proj.skt.core;
 
 import java.io.File;
 import java.io.FileWriter;

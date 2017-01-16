@@ -1,10 +1,10 @@
-package com.choilab.proj.skt.core;
+package proj.skt.core;
 
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-import com.choilab.proj.skt.ServerConfigure;
+import proj.skt.ServerConfigure;
 
 public class TaskScheduler {
 
